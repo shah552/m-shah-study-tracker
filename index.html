@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M. SHAH | Study Tracker</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 24px;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+    }
+    .card {
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 24px;
+      border-radius: 18px;
+      background: #1e293b;
+    }
+    h1 { color: #93c5fd; }
+    input, button {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 12px;
+      margin: 7px 0;
+      border: 0;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    button {
+      background: #60a5fa;
+      color: #0f172a;
+      font-weight: bold;
+    }
+    li { padding: 10px 0; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>M. SHAH</h1>
+    <p>PERSONAL STUDY TRACKER</p>
+    <hr>
+    <h2>Today's Study Plan</h2>
+    <form id="taskForm">
+      <input id="taskInput" placeholder="Enter your study task..." required>
+      <button type="submit">+ Add Task</button>
+    </form>
+    <ul id="taskList"></ul>
+    <p id="progress">Completed: 0</p>
+  </div>
+  <script>
+    const form = document.getElementById('taskForm');
+    const input = document.getElementById('taskInput');
+    const list = document.getElementById('taskList');
+    const progress = document.getElementById('progress');
+    let completed = 0;
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const li = document.createElement('li');
+      const check = document.createElement('input');
+      check.type = 'checkbox';
+      check.style.width = 'auto';
+
+      const label = document.createElement('span');
+      label.textContent = ' ' + input.value;
+
+      check.addEventListener('change', function() {
+        completed += check.checked ? 1 : -1;
+        progress.textContent = 'Completed: ' + completed;
+        label.style.textDecoration =
+          check.checked ? 'line-through' : 'none';
+      });
+
+      li.append(check, label);
+      list.appendChild(li);
+      input.value = '';
+    });
+  </script>
+</body>
+</html>
